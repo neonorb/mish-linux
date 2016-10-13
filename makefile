@@ -9,11 +9,11 @@ LIBS=mish feta
 
 -include ../make-base/make-base.mk
 
-all: build/mish-linux
+all: build/mish
 
-build/mish-linux: $(OBJECTS)
+build/mish: $(OBJECTS)
 	g++ $(OBJECTS)          \
 		$(LIBS_FLAGS)       \
-		-o build/mish-linux
+		-o build/mish
 	
-	chmod +x build/mish-linux
+	chmod +x build/mish
