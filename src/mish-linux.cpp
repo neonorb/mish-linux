@@ -1,8 +1,14 @@
 #include <iostream>
-#include <mish.h>
+#include <unistd.h>
 #include <stdlib.h>
-#include <syscalls.h>
+#include <iterator>
+#include <fstream>
+#include <cstdlib>
+
 #include "optionparser.h"
+
+#include <mish.h>
+#include <syscalls.h>
 
 namespace feta {
 
@@ -80,7 +86,7 @@ int main(int argc, char* argv[]) {
 	if (parse.error())
 		return 1;
 
-	if (options[HELP] || argc == 0) {
+	if (options[HELP]) {
 		option::printUsage(std::cout, usage);
 		return 0;
 	}
@@ -105,11 +111,40 @@ int main(int argc, char* argv[]) {
 		} else {
 			execute(sourceCode);
 		}
+	} else if (parse.nonOptionsCount() == 1) {
+		String fileName = parse.nonOption(0);
+
+		// open stream
+		std::ifstream stream(fileName, std::ios::in);
+
+		// read the piped data
+		std::istream_iterator<char> it(stream);
+		std::istream_iterator<char> end;
+		std::string results(it, end);
+
+		// execute it
+		execute(results.data());
+
+		// close stream
+		stream.close();
+	} else {
+		if (isatty(0)) {
+			// TODO console
+			std::cout << "console not implemented yet" << std::endl;
+		} else {
+			// read the piped data
+			std::istream_iterator<char> it(std::cin);
+			std::istream_iterator<char> end;
+			std::string results(it, end);
+
+			// execute it
+			execute(results.data());
+		}
 	}
 
 	unregisterSyscalls();
 
-	// return
+// return
 
 	return 0;
 }
