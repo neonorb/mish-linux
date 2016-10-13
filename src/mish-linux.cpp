@@ -118,6 +118,7 @@ int main(int argc, char* argv[]) {
 		std::ifstream stream(fileName, std::ios::in);
 
 		// read the piped data
+		stream >> std::noskipws;
 		std::istream_iterator<char> it(stream);
 		std::istream_iterator<char> end;
 		std::string results(it, end);
@@ -133,6 +134,7 @@ int main(int argc, char* argv[]) {
 			std::cout << "console not implemented yet" << std::endl;
 		} else {
 			// read the piped data
+			std::cin >> std::noskipws;
 			std::istream_iterator<char> it(std::cin);
 			std::istream_iterator<char> end;
 			std::string results(it, end);
