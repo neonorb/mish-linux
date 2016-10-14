@@ -130,8 +130,17 @@ int main(int argc, char* argv[]) {
 		stream.close();
 	} else {
 		if (isatty(0)) {
-			// TODO console
-			std::cout << "console not implemented yet" << std::endl;
+			bool run = true;
+			while(run) {
+				std::cout << "> ";
+
+				// get command
+				std::string command;
+				std::getline(std::cin, command);
+
+				// execute
+				execute(command.data());
+			}
 		} else {
 			// read the piped data
 			std::cin >> std::noskipws;

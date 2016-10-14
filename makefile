@@ -23,4 +23,3 @@ build/mish: $(OBJECTS)
 .PHONY:
 install: build/mish
 	cp build/mish $(INSTALL)
-	
