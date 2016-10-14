@@ -1,6 +1,6 @@
 # Makefile for Mish Linux
 
-CSOURCES=mish-linux syscalls
+CSOURCES=mish-linux syscalls console
 ASOURCES=
 
 LIBS=mish feta
