@@ -5,6 +5,8 @@ ASOURCES=
 
 LIBS=mish feta
 
+INSTALL=/usr/local/bin/mish
+
 # ----
 
 -include ../make-base/make-base.mk
@@ -17,3 +19,8 @@ build/mish: $(OBJECTS)
 		-o build/mish
 	
 	chmod +x build/mish
+
+.PHONY:
+install: build/mish
+	cp build/mish $(INSTALL)
+	
