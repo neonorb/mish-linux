@@ -131,7 +131,7 @@ int main(int argc, char* argv[]) {
 	} else {
 		if (isatty(0)) {
 			// TODO console
-			std::cout << "console not implemented yet" << std::endl;
+			std::cout << "console not implemented yet :(" << std::endl;
 		} else {
 			// read the piped data
 			std::cin >> std::noskipws;
@@ -146,7 +146,7 @@ int main(int argc, char* argv[]) {
 
 	unregisterSyscalls();
 
-// return
+	// return
 
 	return 0;
 }
