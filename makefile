@@ -1,9 +1,11 @@
 # Makefile for Mish Linux
 
-CSOURCES=mish-linux syscalls
+CSOURCES=mish-linux syscalls console
 ASOURCES=
 
 LIBS=mish feta
+
+INSTALL=/usr/local/bin/mish
 
 # ----
 
@@ -17,3 +19,7 @@ build/mish: $(OBJECTS)
 		-o build/mish
 	
 	chmod +x build/mish
+
+.PHONY:
+install: build/mish
+	cp build/mish $(INSTALL)

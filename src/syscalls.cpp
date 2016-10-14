@@ -20,6 +20,13 @@ Value* printFunction(List<Value*>* arguments) {
 	return NULL;
 }
 
+extern bool consoleLoop;
+Value* exitFunction(List<Value*>* arguments) {
+	consoleLoop = false;
+
+	return NULL;
+}
+
 List<Function*> syscalls;
 
 void registerSyscalls() {
@@ -31,13 +38,19 @@ void registerSyscalls() {
 	syscalls.add(println);
 	mish_syscalls.add(println);
 
-	// print
+	// _print
 	List<ValueType>* printParameterTypes = new List<ValueType>();
 	printParameterTypes->add(STRING_VALUE);
 	Function* print = new Function("__print"_H, printParameterTypes, VOID_VALUE,
 			printFunction);
 	syscalls.add(print);
 	mish_syscalls.add(print);
+
+	// exit
+	List<ValueType>* exitParameterTypes = new List<ValueType>();
+	Function* exit = new Function("__exit"_H, exitParameterTypes, VOID_VALUE, exitFunction);
+	syscalls.add(exit);
+	mish_syscalls.add(exit);
 }
 
 void unregisterSyscalls() {

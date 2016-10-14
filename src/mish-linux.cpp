@@ -4,6 +4,9 @@
 #include <iterator>
 #include <fstream>
 #include <cstdlib>
+#include <signal.h>
+#include <stdio.h>
+#include <console.h>
 
 #include "optionparser.h"
 
@@ -66,11 +69,11 @@ const option::Descriptor usage[] = {
 
 };
 
-static void execute(String sourceCode) {
-	Code* code = mish_compile(sourceCode);
-	if (code != NULL) {
-		mish_execute(code);
-		delete code;
+void signalHandler(int s) {
+	if (s == 2) {
+		if (currentThread != NULL) {
+			killThread();
+		}
 	}
 }
 
@@ -99,8 +102,17 @@ int main(int argc, char* argv[]) {
 	 for (int i = 0; i < parse.nonOptionsCount(); ++i)
 	 std::cout << "Non-option #" << i << ": " << parse.nonOption(i) << "\n";*/
 
+	struct sigaction sigIntHandler;
+
+	sigIntHandler.sa_handler = signalHandler;
+	sigemptyset(&sigIntHandler.sa_mask);
+	sigIntHandler.sa_flags = 0;
+
+	sigaction(SIGINT, &sigIntHandler, NULL);
+
 	registerSyscalls();
 
+	int returnCode = 0;
 	if (options[COMMAND]) {
 		String sourceCode = options[COMMAND].arg;
 
@@ -124,14 +136,13 @@ int main(int argc, char* argv[]) {
 		std::string results(it, end);
 
 		// execute it
-		execute(results.data());
+		returnCode = execute(results.data());
 
 		// close stream
 		stream.close();
 	} else {
 		if (isatty(0)) {
-			// TODO console
-			std::cout << "console not implemented yet :(" << std::endl;
+			console();
 		} else {
 			// read the piped data
 			std::cin >> std::noskipws;
@@ -140,13 +151,11 @@ int main(int argc, char* argv[]) {
 			std::string results(it, end);
 
 			// execute it
-			execute(results.data());
+			returnCode = execute(results.data());
 		}
 	}
 
 	unregisterSyscalls();
 
-	// return
-
-	return 0;
+	return returnCode;
 }
