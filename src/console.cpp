@@ -44,12 +44,13 @@ int execute(String sourceCode) {
 bool consoleLoop = true;
 extern bool hasNewline;
 void console() {
+	std::cout << "Welcome to Mish! Type __exit() to exit and return back to your shell." << std::endl;
 	while (consoleLoop) {
 		if(!hasNewline) {
 			std::cout << "%\n";
 			hasNewline = true;
 		}
-		std::cout << "> ";
+		std::cout << "mish> ";
 
 		// get command
 		std::string command;
