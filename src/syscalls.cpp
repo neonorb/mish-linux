@@ -8,14 +8,18 @@
 #include <mish.h>
 #include <iostream>
 
+bool hasNewline = true;
 Value* printlnFunction(List<Value*>* arguments) {
 	std::cout << ((StringValue*) arguments->get(0))->value << std::endl;
+	hasNewline = true;
 
 	return NULL;
 }
 
 Value* printFunction(List<Value*>* arguments) {
-	std::cout << ((StringValue*) arguments->get(0))->value;
+	String string = ((StringValue*) arguments->get(0))->value;
+	std::cout << string;
+	hasNewline = string[strlen(string) - 1] == '\n';
 
 	return NULL;
 }

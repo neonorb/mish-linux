@@ -42,8 +42,13 @@ int execute(String sourceCode) {
 }
 
 bool consoleLoop = true;
+extern bool hasNewline;
 void console() {
 	while (consoleLoop) {
+		if(!hasNewline) {
+			std::cout << "%\n";
+			hasNewline = true;
+		}
 		std::cout << "> ";
 
 		// get command
