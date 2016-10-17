@@ -34,6 +34,7 @@ int execute(String sourceCode) {
 		if (shouldKill) {
 			shouldKill = false;
 			mish_killThread(currentThread);
+			currentThread = NULL;
 		}
 	}
 
@@ -48,6 +49,12 @@ void console() {
 		// get command
 		std::string command;
 		std::getline(std::cin, command);
+		// if fail (a.k.a. CTRL+C), then reset fail
+		if(std::cin.fail()) {
+			std::cin.clear();
+			std::cout << "\n";
+			continue;
+		}
 
 		// execute
 		execute(command.data());
