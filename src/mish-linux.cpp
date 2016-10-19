@@ -17,6 +17,7 @@ namespace feta {
 
 void crash(String message) {
 	std::cout << message << std::endl;
+	exit(1);
 }
 
 void fault(String message) {
