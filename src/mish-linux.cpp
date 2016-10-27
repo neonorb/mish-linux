@@ -20,7 +20,7 @@
 namespace feta {
 
 void crash(String message) {
-	std::cout << message << std::endl;
+	std::cout << "[CRASH] " << message << std::endl;
 	exit(1);
 }
 
