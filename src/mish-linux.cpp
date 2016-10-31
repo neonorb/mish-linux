@@ -13,7 +13,7 @@
 #include <mish.h>
 #include <syscalls.h>
 
-#ifdef ALLOW_TESTING
+#ifdef ALLOW_TEST
 #include <test.h>
 #endif
 
@@ -56,7 +56,7 @@ static option::ArgStatus MandatoryOption(const option::Option& option, bool) {
 
 enum optionIndex {
 	UNKNOWN, HELP, PLUS, COMMAND
-#ifdef ALLOW_TESTING
+#ifdef ALLOW_TEST
 	,TEST
 #endif
 }	;
@@ -73,7 +73,7 @@ const option::Descriptor usage[] =
 
 				{ COMMAND, 0, "c", "command", MandatoryOption,
 						"  --command, -c  \tRun command." },
-#ifdef ALLOW_TESTING
+#ifdef ALLOW_TEST
 				{	TEST, 0, "t", "test", option::Arg::None, " --test, -c  \tRun tests."},
 #endif
 
@@ -135,10 +135,10 @@ int main(int argc, char* argv[]) {
 		} else {
 			execute(sourceCode);
 		}
-#ifdef ALLOW_TESTING
+#ifdef ALLOW_TEST
 	} else if (options[TEST]) {
 		test();
-#endif ALLOW_TESTING
+#endif ALLOW_TEST
 	} else if (parse.nonOptionsCount() == 1) {
 		String fileName = parse.nonOption(0);
 
