@@ -138,7 +138,7 @@ int main(int argc, char* argv[]) {
 #ifdef ALLOW_TEST
 	} else if (options[TEST]) {
 		test();
-#endif ALLOW_TEST
+#endif
 	} else if (parse.nonOptionsCount() == 1) {
 		String fileName = parse.nonOption(0);
 

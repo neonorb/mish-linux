@@ -7,6 +7,7 @@
 
 #include <mish.h>
 #include <iostream>
+#include <feta.h>
 
 bool hasNewline = true;
 Value* printlnFunction(List<Value*>* arguments) {
@@ -26,6 +27,7 @@ Value* printFunction(List<Value*>* arguments) {
 
 extern bool consoleLoop;
 Value* exitFunction(List<Value*>* arguments) {
+	UNUSED(arguments);
 	consoleLoop = false;
 
 	return NULL;

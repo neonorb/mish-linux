@@ -6,11 +6,13 @@
  */
 
 #include <mish.h>
+#include <feta.h>
 #include <iostream>
 #include <console.h>
 
 Thread* currentThread = NULL;
 void console_onThreadExit(Thread* thread) {
+	UNUSED(thread);
 	currentThread = NULL;
 }
 static void newThread(Code* code) {
@@ -44,9 +46,11 @@ int execute(String sourceCode) {
 bool consoleLoop = true;
 extern bool hasNewline;
 void console() {
-	std::cout << "Welcome to Mish! Type __exit() to exit and return back to your shell." << std::endl;
+	std::cout
+			<< "Welcome to Mish! Type __exit() to exit and return back to your shell."
+			<< std::endl;
 	while (consoleLoop) {
-		if(!hasNewline) {
+		if (!hasNewline) {
 			std::cout << "%\n";
 			hasNewline = true;
 		}
@@ -56,7 +60,7 @@ void console() {
 		std::string command;
 		std::getline(std::cin, command);
 		// if fail (a.k.a. CTRL+C), then reset fail
-		if(std::cin.fail()) {
+		if (std::cin.fail()) {
 			std::cin.clear();
 			std::cout << "\n";
 			continue;
