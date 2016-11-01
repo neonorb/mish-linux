@@ -14,7 +14,8 @@
 #include <syscalls.h>
 
 #ifdef ALLOW_TEST
-#include <test.h>
+#include <fetatest.h>
+#include <mishtest.h>
 #endif
 
 namespace feta {
@@ -22,6 +23,10 @@ namespace feta {
 void crash(String message) {
 	std::cout << "[CRASH] " << message << std::endl;
 	exit(1);
+}
+
+void log(String message) {
+	std::cout << "[NORMAL] " << message << std::endl;
 }
 
 void fault(String message) {
@@ -137,7 +142,8 @@ int main(int argc, char* argv[]) {
 		}
 #ifdef ALLOW_TEST
 	} else if (options[TEST]) {
-		test();
+		fetatest::test();
+		mishtest::test();
 #endif
 	} else if (parse.nonOptionsCount() == 1) {
 		String fileName = parse.nonOption(0);
