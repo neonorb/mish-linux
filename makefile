@@ -14,12 +14,12 @@ INSTALL=/usr/local/bin/mish
 all: build/mish
 
 build/mish: $(OBJECTS)
-	g++ $(OBJECTS)          \
+	@g++ $(OBJECTS)          \
 		$(LIBS_FLAGS)       \
 		-o build/mish
 	
-	chmod +x build/mish
+	@chmod +x build/mish
 
 .PHONY:
 install: build/mish
-	cp build/mish $(INSTALL)
+	@cp build/mish $(INSTALL)

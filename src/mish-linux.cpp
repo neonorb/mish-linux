@@ -7,7 +7,7 @@
 #include <signal.h>
 #include <stdio.h>
 #include <console.h>
-
+#include <feta.h>
 #include "optionparser.h"
 
 #include <mish.h>
