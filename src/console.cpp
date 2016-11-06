@@ -24,7 +24,7 @@ static void newThread(Code* code) {
 
 bool shouldKill = false;
 int execute(String sourceCode) {
-	Code* code = mish_compile(sourceCode);
+	Code* code = mish::compile::mish_compile(sourceCode);
 	if (code != NULL) {
 		newThread(code);
 	} else {
