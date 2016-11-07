@@ -22,6 +22,7 @@ namespace feta {
 
 void crash(String message) {
 	std::cout << "[CRASH] " << message << std::endl;
+	unregisterSyscalls();
 	exit(1);
 }
 
