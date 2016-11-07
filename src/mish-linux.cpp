@@ -21,7 +21,7 @@
 namespace feta {
 
 void crash(String message) {
-	std::cout << "[CRASH] " << message << std::endl;
+	std::cerr << "[CRASH] " << message << std::endl;
 	unregisterSyscalls();
 	exit(1);
 }
@@ -31,7 +31,7 @@ void log(String message) {
 }
 
 void fault(String message) {
-	std::cout << "[FAULT] " << message << std::endl;
+	std::cerr << "[FAULT] " << message << std::endl;
 }
 
 void debugPrint(String message) {
@@ -96,17 +96,18 @@ void signalHandler(int s) {
 }
 
 int main(int argc, char* argv[]) {
-	// command-line options
-
+	// parse options
 	argc -= (argc > 0);
 	argv += (argc > 0); // skip program name argv[0] if present
 	option::Stats stats(usage, argc, argv);
 	option::Option options[stats.options_max], buffer[stats.buffer_max];
 	option::Parser parse(usage, argc, argv, options, buffer);
 
-	if (parse.error())
+	if (parse.error()) {
 		return 1;
+	}
 
+	// print help if necessary
 	if (options[HELP]) {
 		option::printUsage(std::cout, usage);
 		return 0;
@@ -120,6 +121,7 @@ int main(int argc, char* argv[]) {
 	 for (int i = 0; i < parse.nonOptionsCount(); ++i)
 	 std::cout << "Non-option #" << i << ": " << parse.nonOption(i) << "\n";*/
 
+	// catch signal interrupts
 	struct sigaction sigIntHandler;
 
 	sigIntHandler.sa_handler = signalHandler;
@@ -128,8 +130,10 @@ int main(int argc, char* argv[]) {
 
 	sigaction(SIGINT, &sigIntHandler, NULL);
 
+	// setup Mish syscalls
 	registerSyscalls();
 
+	// decide options
 	int returnCode = 0;
 	if (options[COMMAND]) {
 		String sourceCode = options[COMMAND].arg;
@@ -141,12 +145,14 @@ int main(int argc, char* argv[]) {
 		} else {
 			execute(sourceCode);
 		}
+	}
 #ifdef ALLOW_TEST
-	} else if (options[TEST]) {
+	else if (options[TEST]) {
 		fetatest::test();
 		mishtest::test();
+	}
 #endif
-	} else if (parse.nonOptionsCount() == 1) {
+	else if (parse.nonOptionsCount() == 1) {
 		String fileName = parse.nonOption(0);
 
 		// open stream
@@ -158,11 +164,11 @@ int main(int argc, char* argv[]) {
 		std::istream_iterator<char> end;
 		std::string results(it, end);
 
-		// execute it
-		returnCode = execute(results.data());
-
 		// close stream
 		stream.close();
+
+		// execute it
+		returnCode = execute(results.data());
 	} else {
 		if (isatty(0)) {
 			console();
@@ -178,6 +184,7 @@ int main(int argc, char* argv[]) {
 		}
 	}
 
+	// remove syscalls
 	unregisterSyscalls();
 
 	return returnCode;

@@ -18,7 +18,7 @@ void console_onThreadExit(Thread* thread) {
 static void newThread(Code* code) {
 	Thread* thread = new Thread(code, ACTIVE);
 	thread->onThreadExit = console_onThreadExit;
-	mish_spawnThread(thread);
+	mish::execute::schedule::spawn(thread);
 	currentThread = thread;
 }
 
@@ -31,16 +31,20 @@ int execute(String sourceCode) {
 		return 1;
 	}
 
-	while (mish_activeThreadCount() > 0) {
-		mish_runScheduler();
+	while (mish::execute::schedule::activeThreadCount() > 0) {
+		mish::execute::schedule::run();
 		if (shouldKill) {
 			shouldKill = false;
-			mish_killThread(currentThread);
+			mish::execute::schedule::kill(currentThread);
 			currentThread = NULL;
 		}
 	}
 
 	return 0;
+}
+
+void killThread() {
+	shouldKill = true;
 }
 
 bool consoleLoop = true;
@@ -69,8 +73,4 @@ void console() {
 		// execute
 		execute(command.data());
 	}
-}
-
-void killThread() {
-	shouldKill = true;
 }
