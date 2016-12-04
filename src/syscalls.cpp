@@ -40,7 +40,7 @@ void registerSyscalls() {
 	List<ValueType>* printlnParameterTypes = new List<ValueType>();
 	printlnParameterTypes->add(ValueType::STRING);
 	Function* println = new Function("__println"_H, printlnParameterTypes,
-			ValueType::VOID, printlnFunction);
+			ValueType::VOID, BIND_FREE_CB(printlnFunction));
 	syscalls.add(println);
 	mish_syscalls.add(println);
 
@@ -48,14 +48,14 @@ void registerSyscalls() {
 	List<ValueType>* printParameterTypes = new List<ValueType>();
 	printParameterTypes->add(ValueType::STRING);
 	Function* print = new Function("__print"_H, printParameterTypes,
-			ValueType::VOID, printFunction);
+			ValueType::VOID, BIND_FREE_CB(printFunction));
 	syscalls.add(print);
 	mish_syscalls.add(print);
 
 	// exit
 	List<ValueType>* exitParameterTypes = new List<ValueType>();
 	Function* exit = new Function("__exit"_H, exitParameterTypes,
-			ValueType::VOID, exitFunction);
+			ValueType::VOID, BIND_FREE_CB(exitFunction));
 	syscalls.add(exit);
 	mish_syscalls.add(exit);
 }
