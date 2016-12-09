@@ -9,6 +9,8 @@
 #include <iostream>
 #include <feta.h>
 
+using namespace mish;
+
 bool hasNewline = true;
 Value* printlnFunction(List<Value*>* arguments) {
 	std::cout << ((StringValue*) arguments->get(0))->value << std::endl;

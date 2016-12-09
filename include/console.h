@@ -10,6 +10,9 @@
 
 #include <mish.h>
 
+using namespace feta;
+using namespace mish;
+
 extern Thread* currentThread;
 void console();
 int execute(feta::String sourceCode);

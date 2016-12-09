@@ -143,7 +143,7 @@ int main(int argc, char* argv[]) {
 			option::printUsage(std::cout, usage);
 			return 1;
 		} else {
-			execute(sourceCode);
+			::execute(sourceCode);
 		}
 	}
 #ifdef ALLOW_TEST
@@ -168,7 +168,7 @@ int main(int argc, char* argv[]) {
 		stream.close();
 
 		// execute it
-		returnCode = execute(results.data());
+		returnCode = ::execute(results.data());
 	} else {
 		if (isatty(0)) {
 			console();
@@ -180,7 +180,7 @@ int main(int argc, char* argv[]) {
 			std::string results(it, end);
 
 			// execute it
-			returnCode = execute(results.data());
+			returnCode = ::execute(results.data());
 		}
 	}
 

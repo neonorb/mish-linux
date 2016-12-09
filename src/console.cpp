@@ -71,6 +71,6 @@ void console() {
 		}
 
 		// execute
-		execute(command.data());
+		::execute(command.data());
 	}
 }
