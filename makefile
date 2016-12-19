@@ -11,6 +11,8 @@ INSTALL=/usr/local/bin/mish
 
 -include ../make-base/make-base.mk
 
+CFLAGS+=-fno-rtti -fno-exceptions
+
 all: build/mish
 
 build/mish: $(OBJECTS)
