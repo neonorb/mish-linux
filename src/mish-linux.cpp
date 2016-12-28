@@ -8,7 +8,7 @@
 #include <stdio.h>
 #include <console.h>
 #include <feta.h>
-#include "optionparser.h"
+#include <optionparser.h>
 
 #include <mish.h>
 #include <syscalls.h>
@@ -61,7 +61,7 @@ static option::ArgStatus MandatoryOption(const option::Option& option, bool) {
 }
 
 enum optionIndex {
-	UNKNOWN, HELP, PLUS, COMMAND
+	UNKNOWN, HELP, COMMAND
 #ifdef ALLOW_TEST
 	,TEST
 #endif
@@ -70,12 +70,10 @@ const option::Descriptor usage[] =
 		{
 
 		{ UNKNOWN, 0, "", "", option::Arg::None,
-				"USAGE: mish [options] [file-path] \n\n" "Options:" },
+				"USAGE: mish [options] [file-path]\n\n" "Options:" },
 
 		{ HELP, 0, "h", "help", option::Arg::None,
 				"  --help, -h  \tPrint usage and exit." },
-
-//{ PLUS, 0, "p", "plus", option::Arg::None, "  --plus, -p  \tIncrement count." },
 
 				{ COMMAND, 0, "c", "command", MandatoryOption,
 						"  --command, -c  \tRun command." },
