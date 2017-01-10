@@ -1,11 +1,11 @@
 # Makefile for Mish Linux
 
-CSOURCES=mish-linux syscalls console
+NAME=mishlinux
+
+CSOURCES=mishlinux syscalls console
 ASOURCES=
 
 LIBS=mish feta
-
-INSTALL=/usr/local/bin/mish
 
 # ----
 
@@ -13,15 +13,4 @@ INSTALL=/usr/local/bin/mish
 
 CFLAGS+=-fno-rtti -fno-exceptions
 
-all: build/mish
-
-build/mish: $(OBJECTS)
-	@g++ $(OBJECTS)          \
-		$(LIBS_FLAGS)       \
-		-o build/mish
-	
-	@chmod +x build/mish
-
-.PHONY:
-install: build/mish
-	@cp build/mish $(INSTALL)
+-include ../make-base/make-bin.mk
