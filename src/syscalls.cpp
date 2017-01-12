@@ -22,7 +22,7 @@ Value* printlnFunction(List<Value*>* arguments) {
 Value* printFunction(List<Value*>* arguments) {
 	String string = ((StringValue*) arguments->get(0))->value;
 	std::cout << string;
-	hasNewline = string[strlen(string) - 1] == '\n';
+	hasNewline = string[stringlength(string) - 1] == '\n';
 
 	return NULL;
 }
