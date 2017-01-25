@@ -2,7 +2,7 @@
 
 NAME=mish-linux
 
-CSOURCES=mish-linux syscalls console
+CPPSOURCES=mish-linux syscalls console
 ASOURCES=
 
 LIBS=mish feta
