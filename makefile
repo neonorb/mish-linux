@@ -5,7 +5,7 @@ NAME=mish-linux
 CPPSOURCES=mish-linux syscalls console
 ASOURCES=
 
-LIBS=mish feta
+LIBS=mish feta danbo
 
 # ----
 

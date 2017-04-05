@@ -9,6 +9,7 @@
 #include <console.h>
 #include <feta.h>
 #include <optionparser.h>
+#include <danbo.h>
 
 #include <mish.h>
 #include <syscalls.h>
@@ -17,6 +18,8 @@
 #include <fetatest.h>
 #include <mishtest.h>
 #endif
+
+using namespace danbo;
 
 namespace feta {
 
@@ -75,8 +78,8 @@ const option::Descriptor usage[] =
 		{ HELP, 0, "h", "help", option::Arg::None,
 				"  --help, -h  \tPrint usage and exit." },
 
-				{ COMMAND, 0, "c", "command", MandatoryOption,
-						"  --command, -c  \tRun command." },
+		{ COMMAND, 0, "c", "command", MandatoryOption,
+				"  --command, -c  \tRun command." },
 #ifdef ALLOW_TEST
 				{	TEST, 0, "t", "test", option::Arg::None, " --test, -c  \tRun tests."},
 #endif

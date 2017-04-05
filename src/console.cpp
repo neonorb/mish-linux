@@ -47,18 +47,19 @@ void killThread() {
 	shouldKill = true;
 }
 
-bool consoleLoop = true;
 extern bool hasNewline;
+void printShell() {
+	if (!hasNewline) {
+		std::cout << "%\n";
+		hasNewline = true;
+	}
+	std::cout << "mish> ";
+}
+
+bool consoleLoop = true;
 void console() {
-	std::cout
-			<< "Welcome to Mish! Type __exit() to exit and return back to your shell."
-			<< std::endl;
 	while (consoleLoop) {
-		if (!hasNewline) {
-			std::cout << "%\n";
-			hasNewline = true;
-		}
-		std::cout << "mish> ";
+		printShell();
 
 		// get command
 		std::string command;
