@@ -16,6 +16,7 @@
 
 #ifdef ALLOW_TEST
 #include <fetatest.h>
+#include <danbotest.h>
 #include <mishtest.h>
 #endif
 
@@ -150,6 +151,7 @@ int main(int argc, char* argv[]) {
 #ifdef ALLOW_TEST
 	else if (options[TEST]) {
 		fetatest::test();
+		danbotest::test();
 		mishtest::test();
 	}
 #endif
