@@ -82,7 +82,7 @@ const option::Descriptor usage[] =
 		{ COMMAND, 0, "c", "command", MandatoryOption,
 				"  --command, -c  \tRun command." },
 #ifdef ALLOW_TEST
-				{	TEST, 0, "t", "test", option::Arg::None, " --test, -c  \tRun tests."},
+				{	TEST, 0, "t", "test", option::Arg::None, " --test, -t  \tRun tests."},
 #endif
 
 				{ 0, 0, 0, 0, 0, 0 }
@@ -150,9 +150,11 @@ int main(int argc, char* argv[]) {
 	}
 #ifdef ALLOW_TEST
 	else if (options[TEST]) {
+		log("running tests");
 		fetatest::test();
 		danbotest::test();
 		mishtest::test();
+		log("all tests passed");
 	}
 #endif
 	else if (parse.nonOptionsCount() == 1) {
